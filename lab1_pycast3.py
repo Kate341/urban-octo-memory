@@ -1,0 +1,6 @@
+x = str("v1")
+y = str(23)
+z = str(45.0)
+print(x)
+print(y)
+print(z)
