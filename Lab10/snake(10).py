@@ -4,10 +4,7 @@ import sys
 import time
 import psycopg2
 
-########################
-#  1. POSTGRES SETUP   #
-########################
-
+#postgres setup
 def connect_db():
     """Connect to PostgreSQL. Update credentials if needed."""
     return psycopg2.connect(
@@ -58,10 +55,7 @@ def save_progress(user_id, score, level):
             conn.commit()
     print(f"Progress saved: user_id={user_id}, score={score}, level={level}")
 
-########################
-#  2. GAME CONSTANTS   #
-########################
-
+#game constants
 USERNAME = input("Enter your username: ")
 USER_ID = get_user_id(USERNAME)
 score, level = load_progress(USER_ID)
@@ -97,10 +91,7 @@ try:
 except:
     print("Optional: place 'eat.wav' and 'crash.wav' in the same folder if you want sound.")
 
-########################
-#  3. LEVEL & WALLS    #
-########################
-
+#game levels and score
 def get_level(score):
     """Returns the level based on the player's score."""
     return score//5
@@ -117,7 +108,7 @@ def get_speed(level):
 def get_walls_for_level(level):
     """Generate a set of wall coordinates for each level."""
     walls = set()
-    # Level 0: border only
+    #border only
     if level >= 0:
         for x in range(GRID_WIDTH):
             walls.add((x, 0))
@@ -138,10 +129,7 @@ def get_walls_for_level(level):
 
     return walls
 
-########################
-#  4. GAME VARIABLES   #
-########################
-
+#game variables
 snake = [(5, 5)]
 direction = (1, 0)
 game_over = False
@@ -170,10 +158,7 @@ speed = get_speed(level)
 walls = get_walls_for_level(level)
 spawn_food()
 
-########################
-#  5. CORE FUNCTIONS   #
-########################
-
+#game core functions
 def draw_all():
     """Draw the entire game scene."""
     win.fill(GRAY)
@@ -266,10 +251,7 @@ def pause_game():
                     pygame.quit()
                     sys.exit()
 
-########################
-#  6. MAIN GAME LOOP   #
-########################
-
+#main game loop
 while True:
     clock.tick(speed)
 
